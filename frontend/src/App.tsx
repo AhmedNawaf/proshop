@@ -1,7 +1,16 @@
+import { Header, Footer } from './components';
+import { Container } from 'react-bootstrap';
+import { Home } from './pages';
 function App() {
   return (
     <>
-      <h1>Hello Guys</h1>
+      <Header />
+      <main className='py-3'>
+        <Container>
+          <Home />
+        </Container>
+      </main>
+      <Footer />
     </>
   );
 }
