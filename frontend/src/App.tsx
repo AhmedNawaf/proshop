@@ -1,18 +1,30 @@
-import { Header, Footer } from './components';
-import { Container } from 'react-bootstrap';
-import { Home } from './pages';
+import { Layout } from './components';
+import Home from './pages/Home';
+import ProductDetails, {
+  loader as ProductLoader,
+} from './pages/ProductDetails';
+import {
+  createBrowserRouter,
+  createRoutesFromElements,
+  Route,
+  RouterProvider,
+} from 'react-router-dom';
+
+const router = createBrowserRouter(
+  createRoutesFromElements(
+    <Route path='/' element={<Layout />}>
+      <Route index element={<Home />} />
+      <Route
+        path='product/:id'
+        element={<ProductDetails />}
+        loader={ProductLoader}
+      />
+    </Route>
+  )
+);
+
 function App() {
-  return (
-    <>
-      <Header />
-      <main className='py-3'>
-        <Container>
-          <Home />
-        </Container>
-      </main>
-      <Footer />
-    </>
-  );
+  return <RouterProvider router={router} />;
 }
 
 export default App;
