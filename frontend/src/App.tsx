@@ -1,5 +1,5 @@
 import { Layout } from './components';
-import Home from './pages/Home';
+import Home, { loader as HomeLoader } from './pages/Home';
 import ProductDetails, {
   loader as ProductLoader,
 } from './pages/ProductDetails';
@@ -13,7 +13,7 @@ import {
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path='/' element={<Layout />}>
-      <Route index element={<Home />} />
+      <Route index element={<Home />} loader={HomeLoader} />
       <Route
         path='product/:id'
         element={<ProductDetails />}

@@ -1,0 +1,23 @@
+{
+  "name": "proshop-backend",
+  "version": "1.0.0",
+  "description": "A Restful API for Powering the frontend",
+  "type": "module",
+  "main": "server.ts",
+  "license": "MIT",
+  "scripts": {
+    "start": "concurrently \"tsc\" \"node --watch dist/server.js\"",
+    "dev": "concurrently \"cd ../frontend && yarn dev\" \"yarn start\"",
+    "build": "tsc -p ."
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.18.2"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.13",
+    "@types/express": "^4.17.17",
+    "@types/node": "^20.2.5",
+    "dotenv": "^16.1.3"
+  }
+}

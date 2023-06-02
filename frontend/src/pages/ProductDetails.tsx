@@ -1,18 +1,17 @@
-import products from '../products.ts';
 import { LoaderFunctionArgs, useLoaderData, Link } from 'react-router-dom';
 import { Row, Col, Image, ListGroup, Card, Button } from 'react-bootstrap';
 import Rating from '../components/Rating';
+import { IProduct } from '../types/product';
+import { getProduct } from '../utils/products';
 
-export function loader({ params }: LoaderFunctionArgs) {
-  const product = products.find((p) => p._id === params.id);
-  return product ? product : null;
+export async function loader({ params }: LoaderFunctionArgs) {
+  await new Promise((resolve) => setTimeout(resolve, 2000));
+  const product: IProduct = await getProduct(params.id);
+  return product;
 }
 
 function ProductDetails() {
-  const product = useLoaderData() as ReturnType<typeof loader>;
-  if (!product) {
-    return <h1>Product not found</h1>;
-  }
+  const product = useLoaderData() as Awaited<ReturnType<typeof loader>>;
   return (
     <>
       <Link className='btn btn-light my-3' to='/'>

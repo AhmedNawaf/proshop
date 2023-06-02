@@ -1,8 +1,15 @@
 import { Row, Col } from 'react-bootstrap';
-import products from '../products';
+import { IProduct } from '../types/product';
 import { Product } from '../components';
+import { useLoaderData } from 'react-router-dom';
+import { getProducts } from '../utils/products';
 
+export async function loader() {
+  const products: IProduct[] = await getProducts();
+  return products;
+}
 function Home() {
+  const products = useLoaderData() as Awaited<ReturnType<typeof loader>>;
   return (
     <>
       <h1>Latest Products</h1>
