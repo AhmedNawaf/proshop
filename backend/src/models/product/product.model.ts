@@ -23,7 +23,8 @@ const productSchema = new mongoose.Schema(
   }
 );
 
-type TProduct = InferSchemaType<typeof productSchema>;
+export type TProduct = InferSchemaType<typeof productSchema>;
 
 const Product = mongoose.model('Product', productSchema);
-// infer the type of Product from the schema
+
+export default Product;
