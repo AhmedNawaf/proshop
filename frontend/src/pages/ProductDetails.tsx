@@ -5,7 +5,6 @@ import { IProduct } from '../types/product';
 import { getProduct } from '../utils/products';
 
 export async function loader({ params }: LoaderFunctionArgs) {
-  await new Promise((resolve) => setTimeout(resolve, 2000));
   const product: IProduct = await getProduct(params.id);
   return product;
 }
