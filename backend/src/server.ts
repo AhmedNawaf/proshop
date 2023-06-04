@@ -2,6 +2,7 @@ import express from 'express';
 import products from './data/products.js';
 import 'dotenv/config.js';
 import cors from 'cors';
+import connectDB from './config/db.js';
 
 const app = express();
 const port = process.env.PORT || 3800;
@@ -25,4 +26,5 @@ app.get('/api/products/:id', (req, res) => {
 
 app.listen(port, () => {
   console.log(`Server listening on port ${port}`);
+  connectDB();
 });

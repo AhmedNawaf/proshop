@@ -6,13 +6,14 @@
   "main": "server.ts",
   "license": "MIT",
   "scripts": {
-    "start": "concurrently \"tsc\" \"node --watch dist/server.js\"",
+    "start": "concurrently \"tsc --watch\" \"nodemon dist/server.js\"",
     "dev": "concurrently \"cd ../frontend && yarn dev\" \"yarn start\"",
     "build": "tsc -p ."
   },
   "dependencies": {
     "cors": "^2.8.5",
-    "express": "^4.18.2"
+    "express": "^4.18.2",
+    "mongoose": "^7.2.2"
   },
   "devDependencies": {
     "@types/cors": "^2.8.13",
