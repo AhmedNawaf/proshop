@@ -1,5 +1,6 @@
 import mongoose, { InferSchemaType } from 'mongoose';
-import reviewsSchema from './review.model.js';
+import reviewSchema from './review.schema.js';
+
 const productSchema = new mongoose.Schema(
   {
     user: {
@@ -12,7 +13,7 @@ const productSchema = new mongoose.Schema(
     brand: { type: String, required: true },
     category: { type: String, required: true },
     description: { type: String },
-    reviews: [reviewsSchema],
+    reviews: [reviewSchema],
     price: { type: Number, required: true, default: 0 },
     countInStock: { type: Number, required: true, default: 0 },
     rating: { type: Number, required: true, default: 0 },
@@ -22,6 +23,14 @@ const productSchema = new mongoose.Schema(
     timestamps: true,
   }
 );
+
+productSchema.virtual('id').get(function () {
+  return this._id.toHexString();
+});
+
+productSchema.set('toJSON', {
+  virtuals: true,
+});
 
 export type TProduct = InferSchemaType<typeof productSchema>;
 

@@ -1,4 +1,4 @@
-import mongoose, { InferSchemaType } from 'mongoose';
+import mongoose from 'mongoose';
 
 const reviewSchema = new mongoose.Schema(
   {
@@ -16,8 +16,4 @@ const reviewSchema = new mongoose.Schema(
   }
 );
 
-export type TReview = InferSchemaType<typeof reviewSchema>;
-
-const reviewModel = mongoose.model('Review', reviewSchema);
-
-export default reviewModel;
+export default reviewSchema;

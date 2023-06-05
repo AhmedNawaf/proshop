@@ -1,5 +1,3 @@
-import { TProduct } from '../models/product/product.model.js';
-
 const products = [
   {
     name: 'Airpods Wireless Bluetooth Headphones',

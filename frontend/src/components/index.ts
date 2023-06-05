@@ -1,3 +1,4 @@
 import Product from './Product';
 import Layout from './Layout';
-export { Layout, Product };
+import Error from './Error';
+export { Layout, Product, Error };

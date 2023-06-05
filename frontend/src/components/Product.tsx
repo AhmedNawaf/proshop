@@ -1,21 +1,21 @@
 import { Card } from 'react-bootstrap';
-import { Product } from '../types/product';
+import { IProduct } from '../types/product';
 import { Link } from 'react-router-dom';
 import Rating from './Rating';
 
 interface Props {
-  product: Product;
+  product: IProduct;
 }
 
 function Product({ product }: Props) {
   return (
     <Card className='my-3 p-3 rounded'>
-      <Link to={`/product/${product._id}`}>
+      <Link to={`/product/${product.id}`}>
         <Card.Img src={product.image} variant='top' />
       </Link>
 
       <Card.Body>
-        <a href={`/product/${product._id}`}>
+        <a href={`/product/${product.id}`}>
           <Card.Title as='div'>
             <strong>{product.name}</strong>
           </Card.Title>

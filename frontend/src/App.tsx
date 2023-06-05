@@ -1,4 +1,4 @@
-import { Layout } from './components';
+import { Layout, Error } from './components';
 import Home, { loader as HomeLoader } from './pages/Home';
 import ProductDetails, {
   loader as ProductLoader,
@@ -13,7 +13,12 @@ import {
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path='/' element={<Layout />}>
-      <Route index element={<Home />} loader={HomeLoader} />
+      <Route
+        index
+        element={<Home />}
+        loader={HomeLoader}
+        errorElement={<Error />}
+      />
       <Route
         path='product/:id'
         element={<ProductDetails />}
