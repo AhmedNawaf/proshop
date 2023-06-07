@@ -1,16 +1,61 @@
-import { LoaderFunctionArgs, useLoaderData, Link } from 'react-router-dom';
-import { Row, Col, Image, ListGroup, Card, Button } from 'react-bootstrap';
+import {
+  LoaderFunctionArgs,
+  useLoaderData,
+  Link,
+  useParams,
+} from 'react-router-dom';
+import {
+  Row,
+  Col,
+  Image,
+  ListGroup,
+  Card,
+  Button,
+  Spinner,
+} from 'react-bootstrap';
 import Rating from '../components/Rating';
-import { IProduct } from '../types/product';
 import { getProduct } from '../utils/products';
+import { QueryClient, useQuery } from '@tanstack/react-query';
 
-export async function loader({ params }: LoaderFunctionArgs) {
-  const product: IProduct = await getProduct(params.id);
-  return product;
+function productIdQuery(productId: string | undefined) {
+  return {
+    queryKey: ['product', productId],
+    queryFn: async () => getProduct(productId),
+  };
+}
+
+export async function loader(
+  queryClient: QueryClient,
+  { params }: LoaderFunctionArgs
+) {
+  return async () => {
+    const { id } = params as { id: string };
+    const query = productIdQuery(id);
+    return queryClient.fetchQuery({
+      ...query,
+      staleTime: 1000 * 60 * 2,
+    });
+  };
 }
 
 function ProductDetails() {
-  const product = useLoaderData() as Awaited<ReturnType<typeof loader>>;
+  const initialData = useLoaderData() as Awaited<ReturnType<typeof getProduct>>;
+  const params = useParams();
+  const { data: product, isLoading } = useQuery({
+    ...productIdQuery(params.id),
+    initialData,
+  });
+
+  if (isLoading) {
+    return (
+      <div className='d-flex justify-content-center'>
+        <Spinner animation='border' role='status'>
+          <span className='visually-hidden'>Loading...</span>
+        </Spinner>
+      </div>
+    );
+  }
+
   return (
     <>
       <Link className='btn btn-light my-3' to='/'>

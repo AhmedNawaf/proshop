@@ -9,6 +9,9 @@ import {
   Route,
   RouterProvider,
 } from 'react-router-dom';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+
+const queryClient = new QueryClient();
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -16,20 +19,24 @@ const router = createBrowserRouter(
       <Route
         index
         element={<Home />}
-        loader={HomeLoader}
+        loader={() => HomeLoader(queryClient)}
         errorElement={<Error />}
       />
       <Route
         path='product/:id'
         element={<ProductDetails />}
-        loader={ProductLoader}
+        loader={(obj) => ProductLoader(queryClient, obj)}
       />
     </Route>
   )
 );
 
 function App() {
-  return <RouterProvider router={router} />;
+  return (
+    <QueryClientProvider client={queryClient}>
+      <RouterProvider router={router} />
+    </QueryClientProvider>
+  );
 }
 
 export default App;
