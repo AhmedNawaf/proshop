@@ -6,7 +6,7 @@ function Error() {
     return (
       <>
         <div>{error.status}</div>
-        <div>{error.data}</div>
+        <div>{error.statusText}</div>
       </>
     );
   }
